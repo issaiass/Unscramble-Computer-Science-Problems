@@ -20,14 +20,20 @@ Print a message:
 September 2016.".
 """
 
-max_time = 0
-max_phone = str()
+
+
+phone0 = [call[0].replace(' ', '_') for call in calls]
+phone1 = [call[1].replace(' ', '_') for call in calls]
+phones = list()
+phones.extend(phone0)
+phones.extend(phone1)
+time = dict(zip(phones, len(phones)*[0]))
+
 for call in calls:
-    time = float(call[3])
-    phone = call[1]
+    t = int(call[3])
+    time[call[0].replace(' ', '_')] += t
+    time[call[1].replace(' ', '_')] += t
 
-    if time > max_time:
-        max_time = time
-        max_phone = call[1]
-
-print(f"{max_phone} spent the longest time, {max_time} seconds, on the phone during September 2016.")
+max_time = max(time.values())
+max_phone = dict(zip(time.values(), time.keys()))
+print(f'{max_phone[max_time]} spent the longest time, {max_time} seconds, on the phone during September 2016') 

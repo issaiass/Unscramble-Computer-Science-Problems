@@ -61,7 +61,7 @@ Below i list some useful Links:
 
 - **Task0**: This task open two lists, each one can be defined as O(1) so the worst case scenario time complexity will be O(1).
 - **Task1**: This task has two inputs, *data* and *phone_numbers_buffer*, the worst case of this could be O(n.m), but because the numbers are limited and data is unlimited as input the worst case scenario is O(n).
-- **Task2**: We can see that we have O(n) for calls and others, are just O(1) so for the given input we have the worst case scenario as O(n).
+- **Task2**: We can see that we have O(n) for calls, list and others part of the code are just O(1) so for the given input we have the worst case scenario as O(n).
 - **Task3**: Here we have calls in the for loop representing O(n) and looking for some numbers in accessing the list, so we have this with O(1). The worst case scenario is given by this input that is O(n).
 - **Task4**: The worst-case scenario for this code is determined by the loop over the 'calls' list, which has a time complexity of O(n). The time complexity of other operations (reading files, checking conditions, and appending to lists) is relatively minor compared to the loop over 'calls'
 

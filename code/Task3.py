@@ -45,23 +45,46 @@ to other fixed lines in Bangalore."
 The percentage should have 2 decimal digits
 """
 
-phone_numbers = []
-phone_from = []
-for call in calls:
-    calling = call[0]
-    received = call[1]   
-    if '(080)' in received:
-        phone_numbers.append(received)
-    if '(080)' in received and '(080)' in calling:
-        phone_from.append(calling)        
-#    if '(080)' not in received:
-#        continue  
-#    if received in phone_numbers:
-#        continue
-#    phone_numbers.append(received)
 
-num = len(list(set(phone_from)))
-den = len(list(set(phone_numbers)))
-res = round(100*num/den, 2)
+phone0 = [call[0] for call in calls]
+phone1 = [call[1] for call in calls]
+phones = list()
+phones.extend(phone0)
+phones.extend(phone1)
 
-print(f"{res} percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.")
+
+# PART A
+bangalore_numbers = list()
+bangalore_codes = dict()
+mobile_numbers = list()
+mobile_codes = dict()
+telemarketer_numbers = list()
+telemarketer_code = dict()
+for num in phones:
+    if '(' in num: # find bangalore land lines
+        area_code = num[:num.find(')')+1]
+        bangalore_numbers.append(num)
+        bangalore_codes[area_code] = bangalore_numbers
+    if ' ' in num: # find cell phones
+        area_code = num[:4]
+        mobile_numbers.append(num)
+        mobile_codes[area_code] = mobile_numbers
+    if num.startswith('140'): # find telemarketers
+        telemarketer_numbers.append(num)
+        telemarketer_code['140'] = telemarketer_numbers
+
+# PART B 
+calls_from_to = 0
+total_calls = len(calls)
+for n in range(total_calls):
+    if phone0[n].startswith('(') and phone1[n].startswith('('):
+        calls_from_to +=1
+pcnt = round(100*calls_from_to/total_calls, 2)
+
+
+# PRESENT RESULTS
+print("The numbers called by people in Bangalore have codes:\n")
+[print(num) for num in sorted(bangalore_codes.keys())]
+[print(num) for num in sorted(mobile_codes.keys())]
+print()
+print(f"{pcnt} percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.")

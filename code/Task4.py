@@ -25,11 +25,28 @@ Print a message:
 The list of numbers should be print out one per line in lexicographic order with no duplicates.
 """
 
-tele_marketing = []
-for call in calls:
-    if call[0][:3] != str(140):
-        continue
-    if call[0] not in tele_marketing:
-        tele_marketing.append(call[0])
+phone0 = list(set([call[0] for call in calls])) # outgoing call
+phone1 = list(set([call[1] for call in calls])) # receive call
+phone2 = list(set([call[0] for call in texts])) # send text
+phone3 = list(set([call[1] for call in texts])) # receive text
 
-print(f"These numbers could be telemarketers: {tele_marketing}")
+
+
+telemarketer_numbers = list()
+telemarketer_code = dict()
+for call in calls:
+    outgoing_call = call[0]
+    if not outgoing_call.startswith('140'): # lookup another if not telemarketing
+        continue
+    if outgoing_call in phone2: # lookup another if send text
+        continue
+    if outgoing_call in phone3: # lookup another if receive text
+        continue
+    if outgoing_call in phone1: # lookup another if receive incoming calls
+        continue
+    telemarketer_numbers.append(outgoing_call) # append if fullfill requirements
+
+telemarketer_numbers = list(set(sorted(telemarketer_numbers)))
+
+print("These numbers could be telemarketers: ")
+[print(num) for num in telemarketer_numbers]
