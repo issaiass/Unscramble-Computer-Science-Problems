@@ -25,28 +25,22 @@ Print a message:
 The list of numbers should be print out one per line in lexicographic order with no duplicates.
 """
 
-phone0 = list(set([call[0] for call in calls])) # outgoing call
-phone1 = list(set([call[1] for call in calls])) # receive call
-phone2 = list(set([call[0] for call in texts])) # send text
-phone3 = list(set([call[1] for call in texts])) # receive text
+telemarketer = set()
+sending_texts = set([num[0] for num in texts])
+receiving_texts = set([num[1] for num in texts])
+sending_calls = set([num[0] for num in calls])
+receiving_calls = set([num[1] for num in calls])
 
+for out_call in sending_calls: 
+    if out_call in sending_texts: # if in sending text is not telemarketer
+        continue
+    if out_call in receiving_texts: # if in receive texts is not telemarketer
+        continue
+    if out_call in receiving_calls: # if in receive calls is not telemarketer
+        continue
+    telemarketer.add(out_call) # might be telemarketers
 
-
-telemarketer_numbers = list()
-telemarketer_code = dict()
-for call in calls:
-    outgoing_call = call[0]
-    if not outgoing_call.startswith('140'): # lookup another if not telemarketing
-        continue
-    if outgoing_call in phone2: # lookup another if send text
-        continue
-    if outgoing_call in phone3: # lookup another if receive text
-        continue
-    if outgoing_call in phone1: # lookup another if receive incoming calls
-        continue
-    telemarketer_numbers.append(outgoing_call) # append if fullfill requirements
-
-telemarketer_numbers = list(set(sorted(telemarketer_numbers)))
+telemarketer = sorted(telemarketer)  # sort it
 
 print("These numbers could be telemarketers: ")
-[print(num) for num in telemarketer_numbers]
+[print(num) for num in telemarketer] # print it

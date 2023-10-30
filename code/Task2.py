@@ -20,8 +20,6 @@ Print a message:
 September 2016.".
 """
 
-
-
 phone0 = [call[0].replace(' ', '_') for call in calls]
 phone1 = [call[1].replace(' ', '_') for call in calls]
 phones = list()

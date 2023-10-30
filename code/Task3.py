@@ -45,46 +45,36 @@ to other fixed lines in Bangalore."
 The percentage should have 2 decimal digits
 """
 
-
-phone0 = [call[0] for call in calls]
-phone1 = [call[1] for call in calls]
-phones = list()
-phones.extend(phone0)
-phones.extend(phone1)
-
-
 # PART A
-bangalore_numbers = list()
-bangalore_codes = dict()
-mobile_numbers = list()
-mobile_codes = dict()
-telemarketer_numbers = list()
-telemarketer_code = dict()
-for num in phones:
-    if '(' in num: # find bangalore land lines
-        area_code = num[:num.find(')')+1]
-        bangalore_numbers.append(num)
-        bangalore_codes[area_code] = bangalore_numbers
-    if ' ' in num: # find cell phones
-        area_code = num[:4]
-        mobile_numbers.append(num)
-        mobile_codes[area_code] = mobile_numbers
-    if num.startswith('140'): # find telemarketers
-        telemarketer_numbers.append(num)
-        telemarketer_code['140'] = telemarketer_numbers
+bangalore_codes = list()
+mobile_codes = list()
+total_list = list()
+bangalore_bangalore = list()
+
+for call in calls:
+    caller = call[0]
+    if not caller.startswith('(080)'):
+        continue
+    receiver = call[1]
+    total_list.append(receiver)
+    if receiver.startswith('('): # all area codes
+        stop = receiver.find(')')+1
+        area_code = receiver[:stop]
+        bangalore_codes.append(area_code)
+    if receiver.startswith('(080)'): # bangalore to bangalore
+        bangalore_bangalore.append(receiver)
+    if receiver.startswith(('7', '8', '9')): # cell phones
+        area_code = receiver[:4]
+        mobile_codes.append(area_code)
 
 # PART B 
-calls_from_to = 0
-total_calls = len(calls)
-for n in range(total_calls):
-    if phone0[n].startswith('(') and phone1[n].startswith('('):
-        calls_from_to +=1
-pcnt = round(100*calls_from_to/total_calls, 2)
+pcnt = round(100*len(bangalore_bangalore)/len(total_list), 2)
 
 
 # PRESENT RESULTS
 print("The numbers called by people in Bangalore have codes:\n")
-[print(num) for num in sorted(bangalore_codes.keys())]
-[print(num) for num in sorted(mobile_codes.keys())]
+[print(num) for num in sorted(set(bangalore_codes))]
+print()
+[print(num) for num in sorted(set(mobile_codes))]
 print()
 print(f"{pcnt} percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.")
