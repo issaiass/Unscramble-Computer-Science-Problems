@@ -20,6 +20,7 @@ About the data:
 <summary> <b>How It Works<b></summary>
 
 To run the code of each problem just navigate to the folder where the files are and type:
+
     python Task0.py
 
 
@@ -38,7 +39,7 @@ Below i list some useful Links:
 - Install Anaconda
 - Create a virtual environment *conda create -n dsa python=3.6*
 - Activate the environment *conda activate dsa*
-- Install some usefull dependencies *pip install numpy pandas*
+- Install some usefull dependencies *pip install _dependencies_*
 - You are ready to go!
 
 </details>
@@ -54,7 +55,7 @@ Below i list some useful Links:
   - *Task4.py*
   - *texts.csv*
   - *calls.csv*
-- **text_analysis.txt**
+  - *text_analysis.txt*
 - **README.md**: This file, explanation of the project
 
 </details>
